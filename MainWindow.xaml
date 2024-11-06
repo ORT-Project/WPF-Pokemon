@@ -6,7 +6,35 @@
         xmlns:local="clr-namespace:WPF_Pokemon"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="#313131" 
+                                Background="#616161"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                Width="100"
+                                Height="20"> <!-- Radius des coins ici -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Menu>
+            <MenuItem Header="_Edit">
+                <MenuItem Command="ApplicationCommands.Copy"/>
+                <MenuItem Command="ApplicationCommands.Cut"/>
+                <MenuItem Command="ApplicationCommands.Paste"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel>
+            <Button Foreground="White" Content="Ouverture" Click="OnClickOpenBooster" />
+            <Button Foreground="White" Content="Accès au CRUD" Click="OnClickGoToCRUD" />
+        </StackPanel>
     </Grid>
 </Window>

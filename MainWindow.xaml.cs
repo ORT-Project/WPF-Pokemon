@@ -20,4 +20,14 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
+
+    private void OnClickGoToCRUD(object sender, RoutedEventArgs e)
+    {
+        
+    }
+
+    private void OnClickOpenBooster(object sender, RoutedEventArgs e)
+    {
+        
+    }
 }
