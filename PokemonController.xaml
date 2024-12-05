@@ -5,37 +5,83 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:WPF_Pokemon"
         mc:Ignorable="d"
-        Title="PokemonController" Height="450" Width="800">
+        Title="PokemonController" Height="450" Width="800" Background="#1b263b">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        <Button Content="Charger les Pokémon" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                Width="200" Margin="0,20,0,0"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- Pour le Menu -->
+            <RowDefinition Height="Auto"/> <!-- Pour le TextBlock -->
+            <RowDefinition Height="*"/>   <!-- Pour le DataGrid -->
+            <RowDefinition Height="Auto"/> <!-- Pour le Bouton -->
+        </Grid.RowDefinitions>
         
-        <!-- <DataGrid Name="PokemonDataGrid" AutoGenerateColumns="True"  -->
-        <!--           HorizontalAlignment="Stretch" VerticalAlignment="Stretch" -->
-        <!--           Margin="20,70,20,20"/> -->
-        <DataGrid Name="PokemonDataGrid" AutoGenerateColumns="False" 
-                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                  Margin="20,70,20,20" IsReadOnly="False"
-                  CellEditEnding="PokemonDataGrid_CellEditEnding" CanUserAddRows="False">
+        <Menu Grid.Row="0" VerticalAlignment="Top" Background="#415a77" Foreground="White">
+            <MenuItem Header="Accueil" Click="OnClickGoToPageMainWindow"/>
+            <Separator/>
+            <MenuItem Header="Utilisateur" Click="OnClickGoToPageUser"/>
+            <Separator/>
+            <MenuItem Header="Génération" Click="OnClickGoToPageGenerator"/>
+        </Menu>
+        
+        <TextBlock Grid.Row="1" Text="CRUD Pokemon" 
+                   FontSize="24" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,20,0,20"
+                   Foreground="White"/>
+        
+        <DataGrid Grid.Row="2" Name="PokemonDataGrid" AutoGenerateColumns="False" IsReadOnly="False"
+                  CellEditEnding="PokemonDataGrid_CellEditEnding" CanUserAddRows="False"
+                  Style="{StaticResource AlternatingRowStyle}"
+                  HeadersVisibility="Column" AlternationCount="2">
             <DataGrid.Columns>
-                <!-- Colonnes des données -->
                 <DataGridTextColumn x:Name="pokemonID" Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
                 <DataGridTextColumn x:Name="pokemonName" Header="Nom" Binding="{Binding Name}" Width="150"/>
                 <DataGridTextColumn x:Name="pokemonType" Header="Type" Binding="{Binding Type}" Width="100"/>
                 <DataGridTextColumn x:Name="pokemonAttack" Header="Attack" Binding="{Binding Attack}" Width="100"/>
                 <DataGridTextColumn x:Name="pokemonDefense" Header="Defense" Binding="{Binding Defense}" Width="100"/>
                 <DataGridTextColumn x:Name="pokemonHealth" Header="Health" Binding="{Binding Health}" Width="100"/>
-
-                <!-- Colonne Supprimer -->
-                <DataGridTemplateColumn Header="Supprimer" Width="100">
+                <DataGridTemplateColumn Header="Actions" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Supprimer" Click="DeletePokemon_Click" 
-                                    Tag="{Binding}" Width="75"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Supprimer"
+                                        Style="{StaticResource DeleteButtonStyle}"
+                                        Click="DeletePokemon_Click"
+                                        Tag="{Binding}" />
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Grid.Row="3" Content="Ajouter un Pokémon" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Margin="0,20,0,20" 
+                Width="200" 
+                Height="30" 
+                Background="#415a77" 
+                Foreground="White" 
+                FontSize="16" 
+                FontWeight="Bold">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="2"
+                            CornerRadius="5"> <!-- Définir le rayon des coins -->
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>  
+        </Button>
     </Grid>
 </Window>

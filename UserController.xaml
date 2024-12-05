@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="UserController" Height="450" Width="800">
     <Grid>
-        
+        <Button Width="150" Height="40" Margin="0,0,0,10" 
+                Click="OnClickGoToPageMainWindow"/>
     </Grid>
 </Window>

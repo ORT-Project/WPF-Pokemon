@@ -159,6 +159,24 @@ public partial class PokemonController : Window
         }
     }
 
-
-
+    private void OnClickGoToPageMainWindow(object sender, RoutedEventArgs args)
+    {
+        MainWindow mainController = new MainWindow();
+        mainController.Show();
+        this.Close();
+    }
+    
+    private void OnClickGoToPageUser(object sender, RoutedEventArgs args)
+    {
+        UserController userController = new UserController();
+        userController.Show();
+        this.Close();
+    }
+    
+    private void OnClickGoToPageGenerator(object sender, RoutedEventArgs args)
+    {
+        UserController userController = new UserController();
+        userController.Show();
+        this.Close();
+    }
 }

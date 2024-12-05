@@ -8,4 +8,11 @@ public partial class UserController : Window
     {
         InitializeComponent();
     }
+    
+    private void OnClickGoToPageMainWindow(object sender, RoutedEventArgs args)
+    {
+        MainWindow mainController = new MainWindow();
+        mainController.Show();
+        this.Close();
+    }
 }
