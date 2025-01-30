@@ -20,8 +20,12 @@
             <RowDefinition Height="*"/>   <!-- Pour le DataGrid -->
             <RowDefinition Height="Auto"/> <!-- Pour le Bouton -->
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="250"/> 
+        </Grid.ColumnDefinitions>
         
-        <Menu Grid.Row="0" VerticalAlignment="Top" Background="#415a77" Foreground="White">
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Background="#415a77" Foreground="White">
             <MenuItem Header="Accueil" Click="OnClickGoToPageMainWindow"/>
             <Separator/>
             <MenuItem Header="Utilisateur" Click="OnClickGoToPageUser"/>
@@ -29,7 +33,7 @@
             <MenuItem Header="Génération" Click="OnClickGoToPageGenerator"/>
         </Menu>
         
-        <TextBlock Grid.Row="1" Text="CRUD Pokemon" 
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="CRUD Pokemon" 
                    FontSize="24" 
                    FontWeight="Bold" 
                    HorizontalAlignment="Center" 
@@ -37,7 +41,7 @@
                    Margin="0,20,0,20"
                    Foreground="White"/>
         
-        <DataGrid Grid.Row="2" Name="PokemonDataGrid" AutoGenerateColumns="False" IsReadOnly="False"
+        <DataGrid Grid.Row="2" Grid.Column="0" Name="PokemonDataGrid" AutoGenerateColumns="False" IsReadOnly="False"
                   CellEditEnding="PokemonDataGrid_CellEditEnding" CanUserAddRows="False"
                   Style="{StaticResource AlternatingRowStyle}"
                   HeadersVisibility="Column" AlternationCount="2">
@@ -62,26 +66,38 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="3" Content="Ajouter un Pokémon" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top" 
-                Margin="0,20,0,20" 
-                Width="200" 
-                Height="30" 
-                Background="#415a77" 
-                Foreground="White" 
-                FontSize="16" 
-                FontWeight="Bold">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="2"
-                            CornerRadius="5"> <!-- Définir le rayon des coins -->
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>  
-        </Button>
+        
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="10" Background="#2b3a52">
+            <TextBlock Text="Ajouter un Pokemon" FontSize="18" FontWeight="Bold" Foreground="White" Margin="0,0,0,10"/>
+            
+            <TextBlock Text="Nom :" Foreground="White"/>
+            <TextBox Name="PokemonNameInput" Margin="0,5,0,10"/>
+            
+            <TextBlock Text="Type :" Foreground="White"/>
+            <ComboBox Name="PokemonTypeInput" Margin="0,5,0,10">
+                <ComboBoxItem Content="Plante"/>
+                <ComboBoxItem Content="Feu"/>
+                <ComboBoxItem Content="Eau"/>
+                <ComboBoxItem Content="Électrique"/>
+                <ComboBoxItem Content="Combat"/>
+                <ComboBoxItem Content="Psy"/>
+                <ComboBoxItem Content="Métal"/>
+                <ComboBoxItem Content="Ténèbre"/>
+                <ComboBoxItem Content="Dragon"/>
+                <ComboBoxItem Content="Normal"/>
+                <ComboBoxItem Content="Fée"/>
+            </ComboBox>
+            
+            <TextBlock Text="Points Attaque :" Foreground="White"/>
+            <TextBox Name="PokemonAttackInput" Margin="0,5,0,10"/>
+            
+            <TextBlock Text="Points Défense :" Foreground="White"/>
+            <TextBox Name="PokemonDefenseInput" Margin="0,5,0,10"/>
+            
+            <TextBlock Text="Points de Vie :" Foreground="White"/>
+            <TextBox Name="PokemonHealthInput" Margin="0,5,0,10"/>
+            
+            <Button Content="Ajouter" Click="AddPokemon_Click" Background="#415a77" Foreground="White" FontSize="14" FontWeight="Bold"/>
+        </StackPanel>
     </Grid>
 </Window>

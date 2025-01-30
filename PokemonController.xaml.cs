@@ -158,6 +158,48 @@ public partial class PokemonController : Window
             }
         }
     }
+    
+    private async void AddPokemon_Click(object sender, RoutedEventArgs e)
+    {
+        string name = PokemonNameInput.Text;
+        string type = (PokemonTypeInput.SelectedItem as ComboBoxItem)?.Content.ToString();
+        if (!int.TryParse(PokemonAttackInput.Text, out int attack))
+        {
+            MessageBox.Show("Veuillez entrer un montant valide.");
+            return;
+        }
+        
+        if (!int.TryParse(PokemonAttackInput.Text, out int defense))
+        {
+            MessageBox.Show("Veuillez entrer un montant valide.");
+            return;
+        }
+        
+        if (!int.TryParse(PokemonAttackInput.Text, out int health))
+        {
+            MessageBox.Show("Veuillez entrer un montant valide.");
+            return;
+        }
+    
+        Pokemon newPokemon = new Pokemon { Name = name, Type = type, Attack = attack, Defense = defense, Health = health };
+    
+        try
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.PostAsJsonAsync("https://localhost:7274/api/Pokemon/InsertPokemon", newPokemon);
+                response.EnsureSuccessStatusCode();
+            }
+        
+            var pokemonList = await LoadData();
+            PokemonDataGrid.ItemsSource = null;
+            PokemonDataGrid.ItemsSource = pokemonList;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Erreur lors de l'ajout : {ex.Message}");
+        }
+    }
 
     private void OnClickGoToPageMainWindow(object sender, RoutedEventArgs args)
     {
